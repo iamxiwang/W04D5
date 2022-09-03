@@ -1,5 +1,3 @@
-require "byebug"
-
 def my_min_1(arr)
     arr.each do |ele|
         if arr.all? do |ele2|
@@ -45,36 +43,24 @@ end
 # list = [5, 3, -7]
 # p largest_contiguous_subsum1(list) # => 8
 
-
-# def largest_contiguous_subsum2(list)
-#     current_max = 0
-#     max_end = 0
-#     (0...list.length).each do |i|
-#         max_end = max_end + list[i]
-#         if max_end > current_max
-#             current_max = max_end
-#         else
-#             max_end = 0
-#         end
-#     end
-#     current_max
-# end 
+# As we can see that we are keeping a running sum of integers and when it becomes less than 0, we reset it to 0 (Greedy Part). This is because continuing with a negative sum is way worse than restarting with a new range.
 
 def largest_contiguous_subsum2(list)
-    cs = list[0]
-    ms = list[0]
+    current_subarr_sum = list[0]
+    max = list[0]
+    (1...list.length).each do |i|
+        if current_subarr_sum < 0  # chechk if the current sum  < 0
+            current_subarr_sum = 0
+        end
+        current_subarr_sum += list[i]
 
-    (1...list.length).each do |j|
-        cs += list[j]
-        if cs > ms 
-            ms = cs 
-        elsif cs < 0
-            cs = 0 
-        end 
-    end 
-    return list.max if ms < 0 
-    ms
-end
+        if max < current_subarr_sum
+            max = current_subarr_sum
+        end
+    end
+    max
+end 
+
 
 
 list = [5, 3, -7]
