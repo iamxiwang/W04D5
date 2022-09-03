@@ -33,20 +33,32 @@ def bsearch(arr, ele)
     end
 end
 
+# def good_two_sum?(arr, target_sum) 
+#     h = Hash.new {|h,k| h[k] = true}
+#     arr.each do |ele|
+#         h[ele]
+#     end 
+#     arr.each do |ele|
+#         h[ele] = false 
+#         return true if h.has_key?(target_sum - ele) && h[target_sum - ele] == true
+#     end 
+#     false         
+# end
+
 def good_two_sum?(arr, target_sum) 
-    h = Hash.new {|h,k| h[k] = true}
-    arr.each do |ele|
-        h[ele]
-    end 
-    arr.each do |ele|
-        h[ele] = false 
-        return true if h.has_key?(target_sum - ele) && h[target_sum - ele] == true
-    end 
-    false         
+    hash = {}
+    arr.each do |num|
+        if hash[target_sum-num]
+            return true
+        end
+        hash[num] = true
+    end
+    false
+
 end
 #if there if duplicate elements in the array, hash map?
 #O(n)
 
-arr = [0, 1, 5, 5, 7]
+arr = [0, 1, 5, 7]
 p good_two_sum?(arr, 6) # => should be true
 p good_two_sum?(arr, 10) # => should be false
